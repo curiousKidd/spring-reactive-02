@@ -16,6 +16,7 @@ public class WindowExample02 {
     public static void main(String[] args) {
         Flux
             .fromIterable(SampleData.monthlyBookSales2021)
+//            .window(3)
             .window(3)
             .flatMap(flux -> MathFlux.sumInt(flux))
             .subscribe(new BaseSubscriber<>() {

@@ -18,7 +18,7 @@ public class FlatMapExample03 {
     public static void main(String[] args) {
         Flux
             .range(2, 8)
-            .flatMap(dan -> Flux
+            .map(dan -> Flux
                                 .range(1, 9)
                                 .publishOn(Schedulers.parallel())
                                 .map(n -> dan + " * " + n + " = " + dan * n))

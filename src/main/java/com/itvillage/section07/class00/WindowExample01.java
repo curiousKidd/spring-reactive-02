@@ -15,21 +15,23 @@ public class WindowExample01 {
     public static void main(String[] args) {
         Flux
             .range(1, 11)
-            .window(3)
-            .flatMap(flux -> {
-                Logger.info("======================");
-                return flux;
-            })
-            .subscribe(new BaseSubscriber<>() {
+                .doOnRequest(n -> Logger.info("doOnRequest1 > request: {}", n))
+                .window(3)
+                .doOnRequest(n -> Logger.info("doOnRequest2 > request: {}", n))
+                .flatMap(flux -> {
+                    Logger.info("======================");
+                    return flux;
+                })
+                .subscribe(new BaseSubscriber<>() {
                 @Override
                 protected void hookOnSubscribe(Subscription subscription) {
-                    subscription.request(2);
+                    subscription.request(7);
                 }
 
                 @Override
                 protected void hookOnNext(Integer value) {
                     Logger.onNext(value);
-                    request(2);
+//                    request(2);
                 }
             });
     }

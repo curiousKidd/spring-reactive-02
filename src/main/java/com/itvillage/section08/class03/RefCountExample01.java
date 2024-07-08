@@ -18,8 +18,8 @@ public class RefCountExample01 {
         Flux<Long> publisher =
                 Flux
                     .interval(Duration.ofMillis(500))
-//                    .publish().autoConnect(1);
-                    .publish().refCount(1);
+//                    .publish().autoConnect(0);
+                    .publish().refCount(0);
         Disposable disposable =
                 publisher.subscribe(data -> Logger.info("# subscriber 1: {}", data));
 
